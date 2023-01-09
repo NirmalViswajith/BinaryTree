@@ -10,6 +10,7 @@ public class BinaryToMirror {
     		this.data = data;
     	}
     }
+   
     public static void preorder(Node root){
         if(root==null){
             return;
@@ -18,24 +19,20 @@ public class BinaryToMirror {
         preorder(root.left);
         preorder(root.right);
     }
-    public static void swap(Node root){
-        if(root==null){
-            return;
-        }
-        Node temp= root.left;
-        root.left=root.right;
-        root.right=temp;
-    }
-	public static void convertToMirror(Node root)
+	public static Node convertToMirror(Node root)
 	{
 	    if(root==null){
-	        return;
+	        return null;
 	    }
-	    convertToMirror(root.left);
-	    convertToMirror(root.right);
-	    swap(root);
+	    Node left = convertToMirror(root.left);
+	    Node right = convertToMirror(root.right);
+	    root.left = right;
+	    root.right=left;
+	    return root;
+	    
 	}
-    public static void main(String[] args)
+
+	public static void main(String[] args)
 	{
 
 		Node root = new Node(1);
@@ -44,8 +41,9 @@ public class BinaryToMirror {
 		root.right.left = new Node(4);
 		root.right.right = new Node(5);
 
-		convertToMirror(root);
-		preorder(root);
-	}
-    
+		
+		
+		
+		preorder(convertToMirror(root));
+	}    
 }
